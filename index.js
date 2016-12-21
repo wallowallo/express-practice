@@ -5,7 +5,7 @@ var fs = require('fs')
 var _ = require('lodash')
 var users = []
 
-fs.readFile('users.json', {encoding: 'utf8'}, function(err) {
+fs.readFile('users.json', {encoding: 'utf8'}, function(err, data) {
   if(err) throw err
   
   JSON.parse(data).forEach(function (user) {
