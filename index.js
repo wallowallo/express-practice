@@ -7,20 +7,19 @@ var users = []
 
 fs.readFile('users.json', {encoding: 'utf8'}, function(err, data) {
   if(err) throw err
-  
+
   JSON.parse(data).forEach(function (user) {
     user.name.full = _.startCase(user.name.first + ' ' + user.name.last)
     users.push(user)
   })
 })
 
-app.get('/', function (req, res) {
-  var buffer = ''
 
-  users.forEach(function (user) {
-    buffer += '<a href="/' + user.username + '">' + user.name.full + '<a>' + '<br>'
-  })
-  res.send(buffer)
+app.set('views', './views')
+app.set('view engine', 'pug')
+
+app.get('/', function (req, res) {
+  res.render('index', {users: users})
 })
 
 app.get('/:username', function (req, res) {
